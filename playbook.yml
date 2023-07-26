@@ -1,0 +1,63 @@
+---
+- name: Set up Linux Distributions
+  hosts: all
+  become: true
+  tasks:
+    - name: Update packages
+      package:
+        name: "*"
+        state: latest
+
+    - name: Install necessary packages for CentOS
+      yum:
+        name:
+          - httpd
+          - certbot
+        state: latest
+      when: ansible_distribution == 'CentOS'
+
+    - name: Install necessary packages for Ubuntu
+      apt:
+        name:
+          - apache2
+          - python3-certbot-apache
+        state: latest
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Install necessary packages for Alpine
+      apk:
+        name:
+          - docker
+        state: latest
+      when: ansible_distribution == 'Alpine'
+
+- name: Execute activities on Linux Distributions
+  hosts: all
+  become: true
+  tasks:
+    - name: Copy and execute CentOS script
+      copy:
+        src: scripts/centos_script.sh
+        dest: /tmp/centos_script.sh
+        mode: '0755'
+      when: ansible_distribution == 'CentOS'
+    - name: Execute CentOS script
+      shell: /tmp/centos_script.sh
+
+    - name: Copy and execute Ubuntu script
+      copy:
+        src: scripts/ubuntu_script.sh
+        dest: /tmp/ubuntu_script.sh
+        mode: '0755'
+      when: ansible_distribution == 'Ubuntu'
+    - name: Execute Ubuntu script
+      shell: /tmp/ubuntu_script.sh
+
+    - name: Copy and execute Alpine script
+      copy:
+        src: scripts/alpine_script.sh
+        dest: /tmp/alpine_script.sh
+        mode: '0755'
+      when: ansible_distribution == 'Alpine'
+    - name: Execute Alpine script
+      shell: /tmp/alpine_script.sh
