@@ -33,11 +33,12 @@ Usage
 Simply run the script to execute the daily tasks for the detected distribution:
 ./daily_tasks.sh
 
-Important Note
-Ensure you have set the DB_PASSWORD environment variable before running the script for Ubuntu, as it will be used to set the root password for MariaDB.
+### **Important Note**
 
-Replace 'your_database_password' in the environment variable and script with your actual database password.
+1. Ensure you have set the DB_PASSWORD environment variable before running the script for Ubuntu, as it will be used to set the root password for MariaDB.
 
-Make sure you have the necessary permissions to execute the script and run the tasks as needed.
+2. Replace 'your_database_password' in the environment variable and script with your actual database password.
 
-For security reasons, avoid sharing or exposing the script with sensitive information to unauthorized users.
+3. Make sure you have the necessary permissions to execute the script and run the tasks as needed.
+
+4. For security reasons, avoid sharing or exposing the script with sensitive information to unauthorized users.
